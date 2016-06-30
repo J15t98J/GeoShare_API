@@ -1,0 +1,33 @@
+RewriteEngine On
+
+# PREVENT PHP ERROR MESSAGES IN RESPONSES
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+
+
+# FRIENDS
+RewriteRule api/user/([^/]+?)/friends/request/([^/]+?)$ api/user/friends/index.php?username=$1&status=request&patchtarget=$2 [QSA,NC,L]
+RewriteRule api/user/([^/]+?)/friends/([^/]+?)$ api/user/friends/index.php?username=$1&deletetarget=$2 [QSA,NC,L]
+RewriteRule api/user/([^/]+?)/friends/([^/]+?)/$ api/user/friends/index.php?username=$1&status=$2 [QSA,NC,L]
+RewriteRule api/user/([^/]+?)/friends/(index.php)?$ api/user/friends/index.php?username=$1 [QSA,NC,L]
+
+# PROFILE PICTURES
+RewriteRule api/user/([^/]+?)/img/(index.php)?$ api/user/img/index.php?username=$1 [QSA,NC,L]
+
+# SESSION
+RewriteRule api/user/([^/]+?)/session/(index.php)?$ api/session/index.php?username=$1 [QSA,NC,L]
+RewriteRule api/user/([^/]+?)/session/([^/]+?)$ api/session/index.php?username=$1&id=$2 [QSA,NC,L]
+
+# USER
+RewriteRule api/user/index.php$ - [L]
+RewriteRule api/user/([^/]+?)$ api/user/index.php?username=$1 [QSA,NC,L]
+RewriteRule api/search/$ api/user/search/index.php [QSA,NC,L]
+RewriteRule api/search/([^/]+?)$ api/user/search/index.php?username=$1 [QSA,NC,L]
+
+# SHARE
+RewriteRule api/share/index.php$ - [L]
+RewriteRule api/share/([^/]+?)$ api/share/index.php?pID=$1 [QSA,NC,L]
+
+# OAUTH
+RewriteRule api/oauth/google/(index.php)?$ - [L]
