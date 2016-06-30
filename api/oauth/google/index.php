@@ -26,3 +26,4 @@ switch($_SERVER['REQUEST_METHOD']) {
     default:
         http_response_code(405);
 }
+?>

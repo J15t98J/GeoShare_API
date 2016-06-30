@@ -74,3 +74,4 @@ switch($_SERVER['REQUEST_METHOD']) {
         http_response_code(405);
         break;
 }
+?>

@@ -3,6 +3,19 @@ date_default_timezone_set("Europe/London");
 //require_once 'C:\xampp\php\extlibs\google-api-php-client-2.0.0\vendor\autoload.php';
 require_once 'google-api-php-client-2.0.0/vendor/autoload.php';
 
+if(!function_exists('getallheaders')) { 
+    function getallheaders() { 
+       $headers = ''; 
+       foreach ($_SERVER as $name => $value) { 
+           if (substr($name, 0, 5) == 'HTTP_') { 
+               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
+           } 
+       } 
+       return $headers; 
+    } 
+}
+
+
 
 /* GOOGLE SERVICES */
 function verifyGoogleToken($token) {
@@ -78,13 +91,13 @@ function getRequestDetails() {
     }
 
     $parameters = splitQuery($_SERVER['QUERY_STRING']);
-    $token = isset(getallheaders()["REST_API_TOKEN"])? getallheaders()["REST_API_TOKEN"] : false;
+    $token = isset(getallheaders()["Rest-Api-Token"])? getallheaders()["Rest-Api-Token"] : false;
     return array("data" => $data, "parameters" => $parameters, "token" => $token);
 }
 
 function connectToDB() {
-    $db = new mysqli("192.168.1.145", "geoshare", "GeoShare.Apps2016", "geoshare", "3306");
-    if($db->connect_error) http_response_code(500) and exit();
+    $db = new mysqli("admin.appsbystudio.co.uk", "geoshare", "GeoShare.Apps2016", "geoshare", "3306");
+    if($db->connect_error) http_response_code(503) and exit();
     return $db;
 }
 
@@ -101,3 +114,4 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and getallheaders()["X-HTTP-Method-Overr
 }
 
 // TODO: groups?
+?>
