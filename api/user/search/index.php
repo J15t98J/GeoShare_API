@@ -31,9 +31,9 @@ switch($_SERVER['REQUEST_METHOD']) {
         }
 
         $result = Array();
-        $return = $db->query("SELECT username from geoshare.users WHERE username LIKE '" . $parameters["username"] . "%' LIMIT 100")->fetch_all(MYSQLI_ASSOC);
+        $return = $db->query("SELECT username, ID from geoshare.users WHERE username LIKE '" . $parameters["username"] . "%' LIMIT 100")->fetch_all(MYSQLI_ASSOC);
         foreach($return as $item) {
-            array_push($result, $item["username"]);
+            if(!areFriends($db, $info["user"], $item["ID"]) || $parameters["showFriends"] !== "false") array_push($result, $item["username"]);
         }
         echo json_encode($result);
 

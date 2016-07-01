@@ -102,7 +102,7 @@ function connectToDB() {
 }
 
 function writeToLog() {
-    $logfile = fopen(/*"C:\\xampp\\api_log.txt"*/"C:\\xampp\\htdocs\\geoshare\\api\\api_log.txt", "a"); // TODO: change back so log isn't publicly visible
+    $logfile = fopen("api_log.txt", "a"); // TODO: change back so log isn't publicly visible
     fwrite($logfile, "[" . date("d/m/Y H:i:s T") . "] " . $_SERVER['REQUEST_METHOD'] . " " . $_SERVER["SCRIPT_NAME"] . "?" . $_SERVER["QUERY_STRING"] . "; responded " . http_response_code() . "\r\n");
     fclose($logfile);
 }
