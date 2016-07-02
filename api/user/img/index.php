@@ -28,7 +28,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         }
 
         $info = getUserInfo($db, $token, $parameters);
-        $names = glob("C:\\xampp\\ppic\\" . $info["pic_uri"]  . ".[a-zA-Z0-9][a-zA-Z0-9]*", GLOB_BRACE);
+        $names = glob("/opt/bitnami/apache2/htdocs/geoshare_ppic/" . $info["pic_uri"]  . ".[a-zA-Z0-9][a-zA-Z0-9]*", GLOB_BRACE);
         if(count($names) > 1) http_response_code(500) and exit();
         $name = array_pop($names);
         $filetype = array_pop(explode(".", $name));
@@ -62,11 +62,11 @@ switch($_SERVER['REQUEST_METHOD']) {
             http_response_code(415) and exit();
         }
 
-        $names = glob("C:\\xampp\\ppic\\" . $info["pic_uri"]  . ".[a-zA-Z0-9][a-zA-Z0-9]*", GLOB_BRACE);
+        $names = glob("/opt/bitnami/apache2/htdocs/geoshare_ppic/" . $info["pic_uri"]  . ".[a-zA-Z0-9][a-zA-Z0-9]*", GLOB_BRACE);
         foreach($names as $name) {
             unlink($name);
         }
-        http_response_code(move_uploaded_file($_FILES['image']['tmp_name'], "C:\\xampp\\ppic\\" . $info["pic_uri"] . "." . strtolower($filetype))? 204 : 500);
+        http_response_code(move_uploaded_file($_FILES['image']['tmp_name'], "/opt/bitnami/apache2/htdocs/geoshare_ppic/" . $info["pic_uri"] . "." . strtolower($filetype))? 204 : 500);
         
         break;
 

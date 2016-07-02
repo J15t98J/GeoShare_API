@@ -102,14 +102,14 @@ function connectToDB() {
 }
 
 function writeToLog() {
-    $logfile = fopen("api_log.txt", "a"); // TODO: change back so log isn't publicly visible
+    $logfile = fopen("/opt/bitnami/apache2/htdocs/geoshare/api/api_log.txt", "a"); // TODO: change back so log isn't publicly visible
     fwrite($logfile, "[" . date("d/m/Y H:i:s T") . "] " . $_SERVER['REQUEST_METHOD'] . " " . $_SERVER["SCRIPT_NAME"] . "?" . $_SERVER["QUERY_STRING"] . "; responded " . http_response_code() . "\r\n");
     fclose($logfile);
 }
 
 register_shutdown_function('writeToLog');
 
-if($_SERVER['REQUEST_METHOD'] == "POST" and getallheaders()["X-HTTP-Method-Override"] == "PATCH") {
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset(getallheaders()["X-Http-Method-Override"]) && getallheaders()["X-Http-Method-Override"] == "PATCH") {
     $_SERVER['REQUEST_METHOD'] = "PATCH";
 }
 
