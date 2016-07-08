@@ -40,10 +40,6 @@ switch($_SERVER['REQUEST_METHOD']) {
             /* CHECK AUTHORISATION */
             $info = getUserInfo($db, $token, $parameters);
             if(!$token || !$info["user"]) {
-				print_r(getallheaders());
-				echo "hey";
-				echo $token;
-				echo "hi";
                 http_response_code(401) and exit();
             }
 

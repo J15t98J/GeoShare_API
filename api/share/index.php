@@ -62,7 +62,7 @@ switch($_SERVER['REQUEST_METHOD']) {
              header("Location: https://geoshare.appsbystudio.co.uk/api/share/" . $result);
             http_response_code(201);
         } else {
-            echo $db->error;
+            //echo $db->error;
             http_response_code(500);
         }
 
