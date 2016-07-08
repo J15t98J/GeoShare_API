@@ -7,9 +7,11 @@ if(!function_exists('getallheaders')) {
     function getallheaders() { 
        $headers = ''; 
        foreach ($_SERVER as $name => $value) { 
-           if (substr($name, 0, 5) == 'HTTP_') { 
+           if(substr($name, 0, 5) == 'HTTP_') {
                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-           } 
+           } elseif($name == "CONTENT_TYPE") {
+               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', $name))))] = $value;
+           }
        } 
        return $headers; 
     } 
@@ -96,7 +98,7 @@ function getRequestDetails() {
 }
 
 function connectToDB() {
-    $db = new mysqli("admin.appsbystudio.co.uk", "geoshare", "GeoShare.Apps2016", "geoshare", "3306");
+    $db = new mysqli("geoshare.cs62jjinkxlv.eu-west-1.rds.amazonaws.com", "geoshare", "GeoShare.Apps2016", "geoshare", "3306");
     if($db->connect_error) http_response_code(503) and exit();
     return $db;
 }
@@ -114,4 +116,5 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset(getallheaders()["X-Http-Method
 }
 
 // TODO: groups?
+
 ?>
