@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set("Europe/London");
 //require_once 'C:\xampp\php\extlibs\google-api-php-client-2.0.0\vendor\autoload.php';
-require_once 'google-api-php-client-2.0.0/vendor/autoload.php';
+require_once 'google-api-php-client/vendor/autoload.php';
 
 if(!function_exists('getallheaders')) { 
     function getallheaders() { 
