@@ -23,7 +23,7 @@ if(!function_exists('getallheaders')) {
 function verifyGoogleToken($token) {
     $client = new Google_Client();
     $client->setApplicationName("GeoShare");
-    $client->setDeveloperKey("AIzaSyCVjg-Egy1zcgtdYVcxOHbtGqMgPxQbzPU");
+    $client->setDeveloperKey(file_get_contents("dev_key.txt"));
     return $client->verifyIdToken($token);
 }
 
